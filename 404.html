@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — TRIVOX</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;700;800;900&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; background: #050608; color: #f4f4f4; font-family: 'Barlow Condensed', sans-serif; }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,0.012) 1px, rgba(255,255,255,0.012) 2px);
+  pointer-events: none; z-index: 0;
+}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; height: 52px;
+  background: rgba(5,6,8,0.92); backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,200,200,0.08);
+  display: flex; align-items: center; padding: 0 24px; z-index: 100;
+}
+.nav-logo {
+  font-weight: 900; font-size: 19px; letter-spacing: 0.14em;
+  background: linear-gradient(135deg, #c8c8c8 0%, #888 40%, #c0c0c0 60%, #707070 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; text-decoration: none;
+}
+.scene-wrap { position: fixed; inset: 0; z-index: 1; }
+.scene-svg { width: 100%; height: 100%; object-fit: cover; }
+.rain { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.raindrop {
+  position: absolute; width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(180,200,220,0.22));
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  0% { transform: translateY(-20px) rotate(10deg); opacity:0; }
+  10% { opacity:1; }
+  90% { opacity:0.3; }
+  100% { transform: translateY(100vh) rotate(10deg); opacity:0; }
+}
+.overlay {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: flex-end;
+  padding: 0 0 44px 36px;
+  background: linear-gradient(to top, rgba(5,6,8,0.97) 0%, rgba(5,6,8,0.5) 30%, transparent 60%);
+}
+.num-404 {
+  font-size: clamp(88px, 17vw, 190px);
+  font-weight: 900; line-height: 0.85; letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #c8c8c8 0%, #888 40%, #c0c0c0 60%, #707070 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: glitch 5s infinite;
+}
+@keyframes glitch {
+  0%,90%,100% { transform:none; filter:none; }
+  91% { transform:translate(-4px,0); filter:hue-rotate(60deg) brightness(1.2); }
+  92% { transform:translate(4px,0); filter:hue-rotate(-60deg); }
+  93% { transform:none; filter:none; }
+  94% { transform:translate(-2px,1px); }
+  95% { transform:none; }
+}
+.label-404 {
+  font-family: 'JetBrains Mono', monospace; font-size: clamp(10px,1.4vw,13px);
+  color: rgba(200,200,200,0.4); letter-spacing: 0.28em; text-transform: uppercase;
+  margin-top: 6px; margin-bottom: 20px;
+}
+.msg-404 { font-size: clamp(14px,2.2vw,19px); color: rgba(200,200,200,0.5); font-weight:300; letter-spacing:0.04em; margin-bottom:24px; }
+.msg-404 span { background: linear-gradient(135deg,#c8c8c8,#888); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:700; }
+.btn-back {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 30px; background: #f4f4f4; color: #060606;
+  font-family: 'Barlow Condensed', sans-serif; font-weight:800; font-size:14px;
+  letter-spacing:0.1em; text-transform:uppercase; text-decoration:none; border-radius:2px;
+  transition: all 0.15s;
+}
+.btn-back:hover { background:#c8c8c8; transform:translateY(-1px); }
+</style>
+</head>
+<body>
+<nav><a class="nav-logo" href="/trivox.html">TRIVOX</a></nav>
+<div class="rain" id="rain"></div>
+
+<div class="scene-wrap">
+<svg class="scene-svg" viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#020305"/>
+    <stop offset="55%" stop-color="#050810"/>
+    <stop offset="100%" stop-color="#0a0d18"/>
+  </linearGradient>
+  <linearGradient id="roadG" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#0c0f16"/>
+    <stop offset="100%" stop-color="#14171f"/>
+  </linearGradient>
+  <linearGradient id="bodyG" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#585c65"/>
+    <stop offset="30%" stop-color="#3c3f48"/>
+    <stop offset="60%" stop-color="#282b32"/>
+    <stop offset="100%" stop-color="#1e2025"/>
+  </linearGradient>
+  <linearGradient id="roofG" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#464a52"/>
+    <stop offset="50%" stop-color="#2a2d34"/>
+    <stop offset="100%" stop-color="#191c22"/>
+  </linearGradient>
+  <linearGradient id="crumpleG" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#3a3d45"/>
+    <stop offset="40%" stop-color="#252830"/>
+    <stop offset="100%" stop-color="#1a1820"/>
+  </linearGradient>
+  <radialGradient id="rimG" cx="38%" cy="35%" r="65%">
+    <stop offset="0%" stop-color="#909090"/>
+    <stop offset="35%" stop-color="#555"/>
+    <stop offset="75%" stop-color="#2a2a2a"/>
+    <stop offset="100%" stop-color="#111"/>
+  </radialGradient>
+  <radialGradient id="tyreG" cx="40%" cy="38%" r="62%">
+    <stop offset="0%" stop-color="#252525"/>
+    <stop offset="100%" stop-color="#080808"/>
+  </radialGradient>
+  <linearGradient id="brakeR" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#d41c1c"/>
+    <stop offset="100%" stop-color="#7a0808"/>
+  </linearGradient>
+  <linearGradient id="windG" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="rgba(25,55,45,0.72)"/>
+    <stop offset="100%" stop-color="rgba(10,22,18,0.58)"/>
+  </linearGradient>
+  <radialGradient id="lglow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="rgba(225,205,140,0.95)"/>
+    <stop offset="35%" stop-color="rgba(200,175,100,0.4)"/>
+    <stop offset="100%" stop-color="transparent"/>
+  </radialGradient>
+  <radialGradient id="lglow2" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="rgba(220,200,140,0.8)"/>
+    <stop offset="100%" stop-color="transparent"/>
+  </radialGradient>
+  <radialGradient id="vignette" cx="50%" cy="50%" r="72%">
+    <stop offset="0%" stop-color="transparent"/>
+    <stop offset="100%" stop-color="rgba(0,0,0,0.68)"/>
+  </radialGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="sglow"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="dshadow"><feDropShadow dx="1" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.85)"/></filter>
+  <pattern id="carbon" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+    <rect width="6" height="6" fill="#1a1d22"/>
+    <rect x="0" y="0" width="3" height="3" fill="#1e2128" opacity="0.85"/>
+    <rect x="3" y="3" width="3" height="3" fill="#1e2128" opacity="0.85"/>
+    <line x1="0" y1="3" x2="3" y2="0" stroke="#24272e" stroke-width="0.35"/>
+    <line x1="3" y1="6" x2="6" y2="3" stroke="#24272e" stroke-width="0.35"/>
+  </pattern>
+  <pattern id="wet" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+    <rect width="50" height="50" fill="none"/>
+    <ellipse cx="25" cy="25" rx="18" ry="3.5" fill="rgba(90,110,160,0.045)" transform="rotate(-12,25,25)"/>
+  </pattern>
+</defs>
+
+<!-- Sky -->
+<rect width="1000" height="660" fill="url(#sky)"/>
+
+<!-- Stars -->
+<g fill="rgba(255,255,255,0.55)">
+  <circle cx="115" cy="28" r="0.7"/><circle cx="275" cy="14" r="0.55"/>
+  <circle cx="445" cy="22" r="0.65"/><circle cx="615" cy="9" r="0.5"/>
+  <circle cx="785" cy="33" r="0.7"/><circle cx="925" cy="18" r="0.55"/>
+  <circle cx="58" cy="52" r="0.45"/><circle cx="338" cy="44" r="0.65"/>
+  <circle cx="558" cy="53" r="0.4"/><circle cx="848" cy="48" r="0.6"/>
+  <circle cx="180" cy="40" r="0.5"/><circle cx="720" cy="20" r="0.6"/>
+</g>
+
+<!-- Background overpass/bridge structure -->
+<path d="M0 285 L1000 205 L1000 235 L0 318 Z" fill="#090b10" opacity="0.85"/>
+<path d="M0 285 L1000 205 L1000 210 L0 290 Z" fill="#12151c" opacity="0.9"/>
+
+<!-- Guardrail left -->
+<path d="M0 355 Q150 318 350 300 Q450 294 550 292" fill="none" stroke="#222630" stroke-width="4"/>
+<path d="M0 360 Q150 323 350 305 Q450 299 550 297" fill="none" stroke="#1a1d24" stroke-width="2"/>
+<g stroke="#222630" stroke-width="2">
+  <line x1="18" y1="353" x2="18" y2="375"/><line x1="55" y1="348" x2="55" y2="370"/>
+  <line x1="92" y1="343" x2="92" y2="365"/><line x1="129" y1="338" x2="129" y2="360"/>
+  <line x1="166" y1="333" x2="166" y2="355"/>
+</g>
+
+<!-- Streetlights in vanishing perspective -->
+<!-- Right side (road goes right) -->
+<g>
+  <line x1="660" y1="190" x2="660" y2="268" stroke="#32363f" stroke-width="2"/>
+  <line x1="660" y1="190" x2="678" y2="190" stroke="#32363f" stroke-width="1.5"/>
+  <circle cx="681" cy="190" r="14" fill="url(#lglow2)" filter="url(#sglow)"/>
+  <circle cx="681" cy="190" r="3.5" fill="rgba(255,242,160,0.95)"/>
+
+  <line x1="748" y1="182" x2="748" y2="268" stroke="#32363f" stroke-width="2.5"/>
+  <line x1="748" y1="182" x2="772" y2="182" stroke="#32363f" stroke-width="2"/>
+  <circle cx="776" cy="182" r="17" fill="url(#lglow2)" filter="url(#sglow)"/>
+  <circle cx="776" cy="182" r="4" fill="rgba(255,244,165,0.98)"/>
+
+  <line x1="840" y1="172" x2="840" y2="270" stroke="#3a3e48" stroke-width="3"/>
+  <line x1="840" y1="172" x2="868" y2="172" stroke="#3a3e48" stroke-width="2"/>
+  <circle cx="872" cy="172" r="20" fill="url(#lglow)" filter="url(#sglow)"/>
+  <circle cx="872" cy="172" r="4.5" fill="rgba(255,246,170,1)"/>
+
+  <line x1="936" y1="162" x2="936" y2="275" stroke="#42464f" stroke-width="3.5"/>
+  <line x1="936" y1="162" x2="970" y2="162" stroke="#42464f" stroke-width="2.2"/>
+  <circle cx="974" cy="162" r="24" fill="url(#lglow)" filter="url(#sglow)"/>
+  <circle cx="974" cy="162" r="5.5" fill="rgba(255,248,178,1)"/>
+</g>
+<!-- Left side lights -->
+<g>
+  <line x1="575" y1="198" x2="575" y2="268" stroke="#32363f" stroke-width="2"/>
+  <line x1="575" y1="198" x2="554" y2="198" stroke="#32363f" stroke-width="1.5"/>
+  <circle cx="551" cy="198" r="14" fill="url(#lglow2)" filter="url(#sglow)"/>
+  <circle cx="551" cy="198" r="3" fill="rgba(255,242,160,0.9)"/>
+
+  <line x1="490" y1="206" x2="490" y2="268" stroke="#32363f" stroke-width="2.5"/>
+  <line x1="490" y1="206" x2="466" y2="206" stroke="#32363f" stroke-width="1.5"/>
+  <circle cx="463" cy="206" r="16" fill="url(#lglow2)" filter="url(#sglow)"/>
+  <circle cx="463" cy="206" r="3.5" fill="rgba(255,242,160,0.92)"/>
+</g>
+
+<!-- Road surface -->
+<path d="M-60 660 L-5 272 L1000 248 L1000 660 Z" fill="url(#roadG)"/>
+<path d="M-60 660 L-5 272 L1000 248 L1000 660 Z" fill="url(#wet)" opacity="0.9"/>
+<!-- Wet sheen -->
+<path d="M-60 660 L-5 272 L1000 248 L1000 660 Z" fill="rgba(60,80,140,0.05)"/>
+
+<!-- Road lane markings -->
+<g fill="rgba(190,195,200,0.16)">
+  <path d="M385 272 L395 272 L418 660 L398 660 Z"/>
+  <path d="M490 268 L498 268 L510 345 L502 345 Z"/>
+  <path d="M522 352 L530 352 L546 444 L538 444 Z"/>
+  <path d="M558 452 L566 452 L585 575 L577 575 Z"/>
+  <path d="M598 590 L606 590 L635 660 L622 660 Z"/>
+</g>
+<!-- Road edge line -->
+<path d="M-5 275 L1000 252" fill="none" stroke="rgba(190,200,210,0.09)" stroke-width="1.5"/>
+
+<!-- Light pool on road -->
+<ellipse cx="480" cy="390" rx="35" ry="90" fill="rgba(200,185,100,0.045)" transform="rotate(-3,480,390)"/>
+<ellipse cx="720" cy="370" rx="28" ry="70" fill="rgba(200,185,100,0.04)"/>
+<ellipse cx="880" cy="348" rx="22" ry="55" fill="rgba(200,185,100,0.045)"/>
+
+<!-- Distant car headlights -->
+<ellipse cx="672" cy="262" rx="5" ry="3" fill="rgba(215,225,255,0.88)" filter="url(#glow)"/>
+<ellipse cx="686" cy="262" rx="5" ry="3" fill="rgba(215,225,255,0.88)" filter="url(#glow)"/>
+<path d="M669 265 L635 292 L695 292 L703 265 Z" fill="rgba(195,215,255,0.04)"/>
+
+<!-- == PORSCHE 911 TURBO — 3/4 front left view, facing right, front destroyed == -->
+
+<!-- Car shadow -->
+<ellipse cx="430" cy="606" rx="320" ry="26" fill="rgba(0,0,0,0.78)"/>
+
+<!-- Rear section -->
+<path d="M78 388 Q88 367 108 353 L142 348 L180 352 Q200 356 210 368 L215 400 L83 406 Z"
+      fill="url(#bodyG)" stroke="#191c22" stroke-width="0.8"/>
+<!-- Rear engine lid -->
+<path d="M108 350 L318 337 L330 351 L210 365 L142 348 Z" fill="url(#roofG)"/>
+<path d="M108 350 L318 337 L330 351 L210 365 L142 348 Z" fill="url(#carbon)" opacity="0.45"/>
+<!-- Engine lid highlight -->
+<path d="M128 348 L298 338 L308 344 L138 352 Z" fill="rgba(255,255,255,0.05)"/>
+<!-- Spoiler -->
+<path d="M178 337 L340 325 L347 332 L182 344 Z" fill="#21242a" stroke="#191c22" stroke-width="0.5"/>
+<path d="M180 337 L340 325 L340 327 L180 339 Z" fill="rgba(255,255,255,0.055)"/>
+<!-- Rear lights -->
+<path d="M83 385 L215 372 L215 379 L83 392 Z" fill="#1a0404"/>
+<path d="M86 386 L178 376 L178 380 L86 390 Z" fill="rgba(200,25,25,0.75)"/>
+<path d="M86 386 L140 381 L140 384 L86 389 Z" fill="rgba(240,35,35,0.9)"/>
+
+<!-- Main body left side -->
+<path d="M80 400 L215 388 L585 366 L626 386 L626 498 L83 516 Z"
+      fill="url(#bodyG)" stroke="#191c22" stroke-width="0.8"/>
+<!-- Character line -->
+<path d="M98 446 Q305 430 558 420 Q592 418 620 422"
+      fill="none" stroke="rgba(255,255,255,0.11)" stroke-width="1.5"/>
+<path d="M98 451 Q305 435 558 425 Q592 423 620 427"
+      fill="none" stroke="rgba(0,0,0,0.28)" stroke-width="1"/>
+<!-- Upper shoulder -->
+<path d="M215 388 L585 366 L626 382 L585 374 L215 396 Z" fill="rgba(255,255,255,0.04)"/>
+<!-- Side air intake -->
+<path d="M225 440 L256 434 L261 450 L230 457 Z" fill="#0c0e12" stroke="#23262e" stroke-width="0.8"/>
+<path d="M227 441 L254 435 L258 448 L231 454 Z" fill="#090b0f"/>
+<!-- Door handle -->
+<path d="M365 410 L398 406 L400 415 L367 419 Z" fill="#1d2028" stroke="#282b34" stroke-width="0.5"/>
+<path d="M367 411 L396 407 L397 412 L368 416 Z" fill="rgba(255,255,255,0.05)"/>
+
+<!-- Roof -->
+<path d="M215 388 L256 310 L535 294 L585 366 L215 388 Z"
+      fill="url(#roofG)" stroke="#191c22" stroke-width="0.8"/>
+<path d="M215 388 L256 310 L535 294 L585 366 L215 388 Z" fill="rgba(255,255,255,0.025)"/>
+<path d="M262 312 L515 296 L528 305 L268 320 Z" fill="rgba(255,255,255,0.05)"/>
+
+<!-- Windshield -->
+<path d="M256 310 L535 294 L558 330 L278 350 Z"
+      fill="url(#windG)" stroke="#182018" stroke-width="1"/>
+<path d="M266 313 L505 297 L520 314 L282 328 Z" fill="rgba(35,110,82,0.08)"/>
+<path d="M272 316 L485 301 L496 310 L284 323 Z" fill="rgba(55,130,95,0.06)"/>
+<!-- Windshield crack (damage from impact) -->
+<g stroke="rgba(215,225,238,0.5)" fill="none" stroke-linecap="round">
+  <path d="M492 305 L512 320 L502 334 L522 344" stroke-width="0.9"/>
+  <path d="M512 320 L528 314 M502 334 L517 329" stroke-width="0.65"/>
+  <path d="M526 300 L542 316 L536 330" stroke-width="0.75"/>
+  <circle cx="512" cy="320" r="5.5" stroke-width="0.5" stroke-dasharray="2 3"/>
+</g>
+
+<!-- A-pillars -->
+<path d="M256 310 L278 350 L262 355 L240 317 Z" fill="#23262d" stroke="#191c22" stroke-width="0.5"/>
+<path d="M535 294 L558 330 L563 327 L541 291 Z" fill="#23262d" stroke="#191c22" stroke-width="0.5"/>
+
+<!-- Mirror left -->
+<path d="M264 335 L288 328 L291 343 L267 349 Z" fill="#2c3036" stroke="#191c22" stroke-width="0.8"/>
+<path d="M265 336 L287 329 L289 341 L268 347 Z" fill="rgba(28,48,38,0.6)"/>
+<path d="M260 341 L264 335" fill="none" stroke="#23262d" stroke-width="2"/>
+
+<!-- B-pillar -->
+<path d="M435 364 L444 316 L454 314 L446 362 Z" fill="#191c22" stroke="#10121a" stroke-width="0.5"/>
+
+<!-- Front left fender (intact) -->
+<path d="M585 366 L626 386 L666 402 L685 438 L670 488 L626 498 L585 488 Z"
+      fill="url(#bodyG)" stroke="#191c22" stroke-width="0.8"/>
+<path d="M590 368 L644 390 L658 422 L648 455" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+<!-- Front left air vent -->
+<path d="M636 400 L668 390 L672 406 L640 417 Z" fill="#0c0e12" stroke="#23262e" stroke-width="0.8"/>
+<g stroke="#23262e" stroke-width="0.65">
+  <line x1="638" y1="401" x2="670" y2="392"/>
+  <line x1="639" y1="405" x2="671" y2="396"/>
+  <line x1="640" y1="409" x2="672" y2="400"/>
+  <line x1="641" y1="413" x2="671" y2="404"/>
+</g>
+
+<!-- Front left wheel arch -->
+<path d="M622 492 Q645 472 686 468 Q726 465 755 482 Q778 498 785 526 Q790 555 778 580 Q760 606 722 614 Q682 620 650 606 Q620 592 612 564 Q607 537 622 515 Z"
+      fill="#0c0e14" stroke="#191c22" stroke-width="1"/>
+
+<!-- == FRONT LEFT WHEEL == -->
+<circle cx="700" cy="552" r="86" fill="url(#tyreG)" stroke="#0c0e14" stroke-width="2"/>
+<circle cx="700" cy="552" r="82" fill="none" stroke="#181818" stroke-width="1"/>
+<circle cx="700" cy="552" r="74" fill="#181818" stroke="#202020" stroke-width="1"/>
+<circle cx="700" cy="552" r="68" fill="url(#rimG)"/>
+<!-- 5-spoke Porsche rim -->
+<g>
+  <path d="M700 484 L710 493 L706 552 L694 552 L691 493 Z" fill="#909090" opacity="0.82"/>
+  <path d="M700 484 L710 493 L706 494 L700 487 Z" fill="#b0b0b0" opacity="0.7"/>
+  <path d="M762 516 L759 527 L710 552 L704 542 L755 510 Z" fill="#909090" opacity="0.82"/>
+  <path d="M762 516 L759 522 L756 518 L760 514 Z" fill="#b0b0b0" opacity="0.7"/>
+  <path d="M737 605 L727 601 L705 555 L715 549 L742 600 Z" fill="#888" opacity="0.8"/>
+  <path d="M663 605 L661 595 L695 552 L704 558 L668 601 Z" fill="#787878" opacity="0.8"/>
+  <path d="M638 516 L648 510 L695 541 L690 552 L642 527 Z" fill="#787878" opacity="0.8"/>
+</g>
+<circle cx="700" cy="552" r="33" fill="#0d0d0d"/>
+<circle cx="700" cy="552" r="27" fill="#111"/>
+<circle cx="700" cy="552" r="22" fill="#1a1a1a" stroke="#252525" stroke-width="1"/>
+<circle cx="700" cy="552" r="16" fill="#202020" stroke="#2a2a2a" stroke-width="0.8"/>
+<circle cx="700" cy="552" r="10" fill="#191919"/>
+<circle cx="700" cy="552" r="6" fill="#222"/>
+<!-- Brake disc -->
+<circle cx="700" cy="552" r="44" fill="none" stroke="rgba(75,75,75,0.6)" stroke-width="6" stroke-dasharray="8 13"/>
+<!-- Red brake caliper -->
+<path d="M700 494 Q734 497 745 520 Q750 534 745 548 L739 548 Q743 534 738 521 Q728 500 700 498 Z"
+      fill="url(#brakeR)" filter="url(#glow)"/>
+<path d="M700 498 Q728 501 736 521 L732 523 Q724 504 700 502 Z" fill="rgba(255,90,90,0.28)"/>
+<!-- Rim highlight -->
+<path d="M654 498 Q673 487 700 484" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2.2" stroke-linecap="round"/>
+
+<!-- == CRUMPLED FRONT RIGHT == -->
+<!-- Main crumple -->
+<path d="M684 398 L752 378 L812 382 L858 402 L874 438 L854 468 L804 482 L748 478 L698 462 L684 436 Z"
+      fill="url(#crumpleG)" stroke="#10121a" stroke-width="0.8"/>
+<!-- Crumple sub-panels -->
+<path d="M758 380 L812 382 L832 396 L788 390 Z" fill="#2d3038" stroke="#191c22" stroke-width="0.5"/>
+<path d="M812 382 L858 402 L850 409 L810 388 Z" fill="#242830" stroke="#10121a" stroke-width="0.5"/>
+<path d="M742 380 L762 382 L760 402 L737 408 L730 392 Z" fill="#31353e" stroke="#191c22" stroke-width="0.5"/>
+<!-- Metal crumple lines -->
+<g stroke="rgba(145,155,175,0.28)" fill="none" stroke-linecap="round">
+  <path d="M698 408 L742 395 L782 399 L824 412"/>
+  <path d="M702 422 L746 409 L792 414 L836 430"/>
+  <path d="M742 395 L744 436" stroke-width="0.65"/>
+  <path d="M782 399 L784 440" stroke-width="0.65"/>
+  <path d="M822 412 L826 452" stroke-width="0.65"/>
+</g>
+<!-- Exposed compartment (front luggage) -->
+<path d="M763 422 L852 432 L860 460 L850 466 L759 454 Z" fill="#0d0f14" stroke="#191c22" stroke-width="0.5"/>
+<g stroke="#23262e" fill="none" stroke-width="1">
+  <line x1="768" y1="425" x2="767" y2="456"/>
+  <line x1="788" y1="423" x2="786" y2="454"/>
+  <line x1="808" y1="424" x2="806" y2="456"/>
+  <line x1="828" y1="427" x2="826" y2="459"/>
+  <line x1="848" y1="433" x2="846" y2="462"/>
+</g>
+<!-- Wiring hanging -->
+<path d="M773 456 Q788 472 778 488" fill="none" stroke="#1a1a2c" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M803 454 Q818 466 808 484" fill="none" stroke="#1a1a2c" stroke-width="1.6"/>
+<path d="M824 458 Q834 468 844 481 Q839 496 844 506" fill="none" stroke="#1c1510" stroke-width="2"/>
+<circle cx="778" cy="489" r="3.2" fill="#111"/>
+<circle cx="808" cy="485" r="2.6" fill="#111"/>
+<!-- Bent sharp metal edges -->
+<path d="M698 413 L730 400 L734 403 L703 416 Z" fill="#3a3d46" stroke="rgba(195,205,220,0.14)" stroke-width="0.5"/>
+<path d="M857 402 L878 422 L870 432 L852 410 Z" fill="#2d3038" stroke="rgba(195,205,220,0.1)" stroke-width="0.5"/>
+<!-- Broken bumper cover pieces -->
+<path d="M683 451 L722 446 L727 466 L720 480 L686 476 Z" fill="#1d2025" stroke="#10121a" stroke-width="0.5"/>
+<path d="M852 456 L888 454 L892 470 L878 484 L850 476 Z" fill="#1d2025" stroke="#10121a" stroke-width="0.5"/>
+<path d="M686 451 L722 447" fill="none" stroke="rgba(195,205,220,0.18)" stroke-width="0.8"/>
+<path d="M702 452 L707 480" fill="none" stroke="rgba(195,205,220,0.14)" stroke-width="0.6"/>
+<!-- Broken headlight right -->
+<path d="M852 396 L882 406 L892 430 L880 440 L852 434 L842 418 Z"
+      fill="#0c0e14" stroke="#191c22" stroke-width="0.8"/>
+<path d="M854 398 L880 408 L887 424 L877 434 L854 432 L844 418 Z"
+      fill="#10141e" stroke="rgba(145,155,200,0.18)" stroke-width="0.5"/>
+<g stroke="rgba(195,208,230,0.22)" fill="none" stroke-width="0.65">
+  <path d="M858 400 L882 410"/>
+  <path d="M860 405 L884 416"/>
+  <path d="M855 413 L877 422"/>
+  <path d="M872 398 L878 428"/>
+</g>
+
+<!-- Front right wheel arch (crumpled) -->
+<path d="M700 480 Q724 462 764 460 Q804 458 833 472 Q860 487 867 514 Q873 540 860 563 Q844 587 810 595 Q772 602 744 590 Q712 576 703 554 Q695 530 700 506 Z"
+      fill="#090b10" stroke="#10121a" stroke-width="1"/>
+<path d="M703 482 L722 468 L703 486" fill="none" stroke="rgba(145,155,175,0.18)" stroke-width="1"/>
+<path d="M843 476 L862 496 L848 471" fill="none" stroke="rgba(145,155,175,0.14)" stroke-width="0.8"/>
+
+<!-- == FRONT RIGHT WHEEL == -->
+<circle cx="786" cy="544" r="73" fill="url(#tyreG)" stroke="#0c0e14" stroke-width="1.5"/>
+<circle cx="786" cy="544" r="64" fill="#111"/>
+<circle cx="786" cy="544" r="58" fill="url(#rimG)" opacity="0.9"/>
+<g opacity="0.82">
+  <path d="M786 471 L794 478 L791 544 L781 544 L779 478 Z" fill="#808080"/>
+  <path d="M840 504 L836 514 L796 544 L790 534 L832 498 Z" fill="#808080"/>
+  <path d="M817 592 L808 589 L788 546 L797 540 L823 587 Z" fill="#707070"/>
+  <path d="M755 592 L753 583 L781 540 L789 546 L758 588 Z" fill="#707070"/>
+  <path d="M732 504 L740 498 L780 530 L774 540 L736 514 Z" fill="#707070"/>
+</g>
+<circle cx="786" cy="544" r="26" fill="#0c0c0c"/>
+<circle cx="786" cy="544" r="20" fill="#111"/>
+<circle cx="786" cy="544" r="14" fill="#1a1a1a" stroke="#222" stroke-width="0.8"/>
+<circle cx="786" cy="544" r="9" fill="#191919"/>
+<!-- Red caliper right -->
+<path d="M788 483 Q814 487 822 506 Q826 519 820 530 L815 529 Q820 518 816 506 Q809 488 788 487 Z"
+      fill="url(#brakeR)" filter="url(#glow)"/>
+
+<!-- Side skirt -->
+<path d="M215 498 L622 477 L622 502 L215 523 Z" fill="#101215" stroke="#0d0f12" stroke-width="0.8"/>
+<path d="M215 498 L622 477 L622 485 L215 506 Z" fill="rgba(255,255,255,0.03)"/>
+<path d="M215 498 L622 477 L622 502 L215 523 Z" fill="url(#carbon)" opacity="0.5"/>
+
+<!-- Underbody rear -->
+<path d="M80 508 L215 498 L215 523 L80 532 Z" fill="#0c0e12" stroke="#090b0f" stroke-width="0.5"/>
+
+<!-- Rear wheel arch -->
+<path d="M80 502 Q88 478 108 467 Q133 462 153 472 Q173 482 178 506 Q183 526 173 544 Q160 560 138 563 Q113 566 97 554 Q80 540 80 520 Z"
+      fill="#090b10" stroke="#10121a" stroke-width="0.8"/>
+
+<!-- Rear wheel -->
+<circle cx="131" cy="516" r="59" fill="url(#tyreG)" stroke="#0c0e14" stroke-width="1.5"/>
+<circle cx="131" cy="516" r="51" fill="#111"/>
+<circle cx="131" cy="516" r="45" fill="url(#rimG)" opacity="0.85"/>
+<g opacity="0.8">
+  <path d="M131 457 L138 463 L136 516 L126 516 L124 463 Z" fill="#787878"/>
+  <path d="M174 490 L170 499 L135 516 L130 507 L167 484 Z" fill="#787878"/>
+  <path d="M156 558 L148 555 L129 517 L137 512 L161 553 Z" fill="#686868"/>
+  <path d="M106 558 L104 549 L126 512 L134 517 L109 554 Z" fill="#686868"/>
+  <path d="M88 490 L95 484 L126 507 L121 516 L92 499 Z" fill="#686868"/>
+</g>
+<circle cx="131" cy="516" r="19" fill="#0c0c0c"/>
+<circle cx="131" cy="516" r="13" fill="#111"/>
+<circle cx="131" cy="516" r="9" fill="#1a1a1a" stroke="#222" stroke-width="0.7"/>
+<!-- Red caliper rear -->
+<path d="M132 458 Q157 462 165 479 Q168 491 163 501 L158 499 Q162 490 159 479 Q152 464 132 462 Z"
+      fill="url(#brakeR)" filter="url(#glow)"/>
+
+<!-- Exhausts -->
+<ellipse cx="164" cy="528" rx="10" ry="6.5" fill="#090909" stroke="#202020" stroke-width="1" transform="rotate(-5,164,528)"/>
+<ellipse cx="164" cy="528" rx="7" ry="4.2" fill="#050505" transform="rotate(-5,164,528)"/>
+<ellipse cx="180" cy="530" rx="10" ry="6.5" fill="#090909" stroke="#202020" stroke-width="1" transform="rotate(-5,180,530)"/>
+<ellipse cx="180" cy="530" rx="7" ry="4.2" fill="#050505" transform="rotate(-5,180,530)"/>
+
+<!-- Front left bumper section (partial) -->
+<path d="M622 488 L683 476 L688 497 L688 516 L622 528 Z" fill="url(#bodyG)" stroke="#10121a" stroke-width="0.8"/>
+<path d="M625 490 L681 478 L685 493 L625 504 Z" fill="rgba(255,255,255,0.04)"/>
+
+<!-- == DEBRIS ON ROAD == -->
+<g filter="url(#dshadow)">
+  <!-- Large bumper pieces -->
+  <path d="M750 578 L795 570 L800 582 L754 590 Z" fill="#1d2025" stroke="#10121a" stroke-width="0.5" transform="rotate(-8,775,580)"/>
+  <path d="M822 568 L861 562 L864 574 L823 580 Z" fill="#191d22" stroke="#0d0f12" stroke-width="0.5" transform="rotate(5,843,572)"/>
+  <path d="M872 582 L896 577 L898 587 L874 591 Z" fill="#1d2025" transform="rotate(-3,885,584)"/>
+  <path d="M702 588 L721 584 L723 592 L703 596 Z" fill="#242830" transform="rotate(15,712,590)"/>
+  <path d="M742 598 L759 594 L761 602 L743 606 Z" fill="#1d2025" transform="rotate(-5,751,600)"/>
+  <path d="M902 572 L919 568 L920 576 L903 580 Z" fill="#191d22" transform="rotate(8,911,574)"/>
+  <path d="M682 608 L697 604 L698 611 L683 615 Z" fill="#242830" transform="rotate(-12,690,609)"/>
+  <!-- Small bits -->
+  <rect x="712" y="602" width="8" height="4" rx="1" fill="#191d22" transform="rotate(25,716,604)"/>
+  <rect x="762" y="608" width="6" height="3" rx="1" fill="#242830" transform="rotate(-15,765,609)"/>
+  <rect x="812" y="598" width="9" height="3" rx="1" fill="#1d2025" transform="rotate(10,816,599)"/>
+  <rect x="852" y="608" width="7" height="4" rx="1" fill="#191d22" transform="rotate(-8,855,610)"/>
+  <rect x="882" y="588" width="5" height="3" rx="1" fill="#242830" transform="rotate(20,884,589)"/>
+  <rect x="922" y="578" width="8" height="3" rx="1" fill="#1d2025" transform="rotate(-5,926,579)"/>
+  <!-- Tiny fragments -->
+  <circle cx="718" cy="610" r="2" fill="#333"/>
+  <circle cx="748" cy="604" r="1.5" fill="#2a2a2a"/>
+  <circle cx="778" cy="598" r="2" fill="#333"/>
+  <circle cx="802" cy="604" r="1.5" fill="#2a2a2a"/>
+  <circle cx="842" cy="601" r="2" fill="#333"/>
+  <circle cx="866" cy="595" r="1.5" fill="#2a2a2a"/>
+  <circle cx="898" cy="584" r="2" fill="#333"/>
+  <circle cx="916" cy="591" r="1.5" fill="#2a2a2a"/>
+  <!-- Glass shards -->
+  <path d="M722 602 L728 599 L725 605 Z" fill="rgba(175,195,218,0.32)"/>
+  <path d="M782 592 L788 589 L785 596 Z" fill="rgba(175,195,218,0.26)"/>
+  <path d="M842 595 L847 592 L844 598 Z" fill="rgba(175,195,218,0.22)"/>
+  <path d="M907 582 L912 580 L909 586 Z" fill="rgba(175,195,218,0.26)"/>
+  <!-- Tyre rubber -->
+  <path d="M660 606 Q700 600 730 604 Q720 608 680 614 Z" fill="#0f0f0f" stroke="#090909" stroke-width="0.5"/>
+  <!-- Fluid stain -->
+  <ellipse cx="782" cy="606" rx="32" ry="9" fill="rgba(12,15,22,0.62)" transform="rotate(-5,782,606)"/>
+  <ellipse cx="840" cy="598" rx="20" ry="6" fill="rgba(12,15,22,0.45)" transform="rotate(3,840,598)"/>
+</g>
+
+<!-- Steam/smoke from impact -->
+<g opacity="0.55">
+  <ellipse cx="793" cy="428" rx="20" ry="9" fill="rgba(115,125,138,0.32)" filter="url(#sglow)"/>
+  <ellipse cx="804" cy="408" rx="15" ry="7" fill="rgba(95,105,118,0.22)" filter="url(#sglow)"/>
+  <ellipse cx="812" cy="392" rx="11" ry="5.5" fill="rgba(75,85,98,0.16)" filter="url(#sglow)"/>
+</g>
+
+<!-- Wet road reflections -->
+<path d="M102 578 Q408 552 705 545" fill="none" stroke="rgba(75,88,112,0.14)" stroke-width="4.5"/>
+<ellipse cx="405" cy="578" rx="286" ry="13" fill="rgba(55,68,98,0.06)"/>
+<!-- Light pole reflections on road -->
+<path d="M700 574 L697 660 L703 660 Z" fill="rgba(195,195,195,0.06)"/>
+<path d="M502 588 L499 660 L505 660 Z" fill="rgba(155,165,135,0.05)"/>
+<!-- Rain ripples on wet road -->
+<ellipse cx="295" cy="598" rx="16" ry="4.5" fill="none" stroke="rgba(145,165,200,0.08)" stroke-width="0.9"/>
+<ellipse cx="548" cy="582" rx="13" ry="3.5" fill="none" stroke="rgba(145,165,200,0.07)" stroke-width="0.8"/>
+<ellipse cx="825" cy="586" rx="11" ry="3" fill="none" stroke="rgba(145,165,200,0.07)" stroke-width="0.75"/>
+<ellipse cx="178" cy="610" rx="19" ry="5.5" fill="none" stroke="rgba(145,165,200,0.06)" stroke-width="0.9"/>
+
+<!-- Hazard triangle -->
+<path d="M952 300 L964 280 L976 300 Z" fill="none" stroke="rgba(215,95,28,0.82)" stroke-width="2.5" stroke-linejoin="round"/>
+<text x="964" y="297" fill="rgba(215,95,28,0.82)" font-size="8" text-anchor="middle" font-family="sans-serif" font-weight="bold">!</text>
+
+<!-- Emergency lights far background -->
+<ellipse cx="645" cy="266" rx="5.5" ry="3" fill="rgba(28,75,255,0.82)" filter="url(#glow)">
+  <animate attributeName="opacity" values="0.82;0.15;0.82" dur="0.75s" repeatCount="indefinite"/>
+</ellipse>
+<ellipse cx="658" cy="266" rx="5.5" ry="3" fill="rgba(255,28,28,0.82)" filter="url(#glow)">
+  <animate attributeName="opacity" values="0.15;0.82;0.15" dur="0.75s" repeatCount="indefinite"/>
+</ellipse>
+
+<!-- Vignette + night grade -->
+<rect width="1000" height="660" fill="url(#vignette)"/>
+<rect width="1000" height="660" fill="rgba(8,12,28,0.11)"/>
+</svg>
+</div>
+
+<div class="overlay">
+  <div class="num-404">404</div>
+  <div class="label-404" id="label404">Page not found</div>
+  <div class="msg-404" id="msg404">Looks like this page <span>didn't survive the crash.</span></div>
+  <a class="btn-back" href="/trivox.html" id="btnBack">← Back to TRIVOX</a>
+</div>
+
+<script>
+// Rain
+const rain = document.getElementById('rain');
+for (let i = 0; i < 85; i++) {
+  const d = document.createElement('div');
+  d.className = 'raindrop';
+  const h = 14 + Math.random() * 26;
+  d.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;height:${h}px;animation-duration:${0.38+Math.random()*0.58}s;animation-delay:${Math.random()*1.2}s;opacity:${0.18+Math.random()*0.38};`;
+  rain.appendChild(d);
+}
+// Language
+try {
+  const st = JSON.parse(localStorage.getItem('trivox_state_v1') || '{}');
+  if (st.currentLang === 'ru') {
+    document.getElementById('label404').textContent = 'Страница не найдена';
+    document.getElementById('msg404').innerHTML = 'Похоже, эта страница <span>не пережила краш.</span>';
+    document.getElementById('btnBack').textContent = '← Назад в TRIVOX';
+  }
+} catch(e) {}
+</script>
+</body>
+</html>
